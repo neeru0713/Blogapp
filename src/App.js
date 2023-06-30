@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-function App() {
+// Import your components here
+import HomePage from "./components/HomePage";
+import Register from "./components/Register";
+import NavBar from "./components/NavBar";
+import Login from "./components/Login";
+import Publish from "./components/Publish";
+import Blog from "./components/Blog";
+
+import { useState } from "react";
+
+const App = () => {
+  const [user, setUser] = useState(null);
+
+  function updateUser(user) {
+    setUser(user);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomePage user={user} />} />
+          <Route
+            path="/register"
+            element={<Register user={user} updateUser={updateUser} />}
+          />
+          <Route
+            path="/login"
+            element={<Login user={user} updateUser={updateUser} />}
+          />
+          <Route
+            path="/blogs/test"
+            element={<Blog />}
+          />
+          <Route path="/publish" element={<Publish user={user} />} />
+        </Routes>
+      </Router>
     </div>
   );
-}
+};
 
 export default App;
